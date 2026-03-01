@@ -31,7 +31,7 @@ export default {
   },
   mounted() {
     // Busca os cursos do back
-    fetch("https://g7tvyp-3000.csb.app/cursos")
+    fetch("http://localhost:3000/cursos")
       .then(res => res.json())
       .then(dados => {
         this.cursos = dados; // dados devem ser [{id, nome}, ...]
@@ -58,7 +58,7 @@ export default {
       if (!this.formValido) return;
 
       try {
-        const resposta = await fetch("https://g7tvyp-3000.csb.app/matricula", {
+        const resposta = await fetch("http://localhost:3000/matricula", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
