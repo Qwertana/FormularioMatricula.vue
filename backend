@@ -1,0 +1,36 @@
+//Criar um terminal e adicionar: "yarn add express cors" e "yarn add -D @types/express @types/cors". Inserir "yarn start".
+
+import express, { Request, Response } from "express"; //express cria o servidor
+import cors from "cors";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json()); //faz com que o servidor entenda os dados enviados em JSON
+
+const cursos = [
+  //um banco de dados simples
+  { id: 1, nome: "Análise e Desenvolvimento de Sistemas" },
+  { id: 2, nome: "Ciência da Computação" },
+  { id: 3, nome: "Engenharia da Computação" },
+];
+
+app.get("/cursos", (req: Request, res: Response) => {
+  res.json(cursos);
+});
+
+app.post("/matricula", (req: Request, res: Response) => {
+  const { nome, email, curso } = req.body; //como o back recebe as informacoes do front
+
+  if (!nome || !email || !curso) {
+    //validacao
+    return res.status(400).json({ mensagem: "Dados inválidos" });
+  }
+
+  return res.status(201).json({ mensagem: "Matrícula criada com sucesso!" });
+});
+
+app.listen(3000, () => {
+  //liga o servidor na porta 3000
+  console.log("Servidor rodando na porta 3000");
+});
