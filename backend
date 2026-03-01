@@ -1,4 +1,5 @@
 //Criar um terminal e adicionar: "yarn add express cors" e "yarn add -D @types/express @types/cors". Inserir "yarn start".
+//Codesandbox não unifica ambas as partes, sendo necessário a simulação de backend dentro do frontend. Em demais plataformas, utilizar ambos os códigos.
 
 import express, { Request, Response } from "express"; //express cria o servidor
 import cors from "cors";
