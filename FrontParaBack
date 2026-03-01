@@ -1,0 +1,101 @@
+<template>
+  <form @submit.prevent="enviarFormulario"> 
+    <input v-model="nome" placeholder="Nome Completo"/>
+    <span v-if="erroNome">{{ erroNome }}</span>
+
+    <input v-model="email" placeholder="E-mail"/>
+    <span v-if="erroEmail">{{ erroEmail }}</span>
+
+    <select v-model="curso">
+      <option disabled value="">Selecione um curso</option>
+      <option v-for="c in cursos" :key="c.id" :value="c.nome">{{ c.nome }}</option> 
+    </select>
+    <span v-if="erroCurso">{{ erroCurso }}</span>
+
+    <button :disabled="!formValido">Matricular</button>
+
+    <p v-if="mensagemSucesso">{{ mensagemSucesso }}</p>
+  </form>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      nome: '',
+      email: '',
+      curso: '',
+      cursos: [],
+      mensagemSucesso: '',
+    }
+  },
+  mounted() {
+    // Busca os cursos do back
+    fetch("https://g7tvyp-3000.csb.app/cursos")
+      .then(res => res.json())
+      .then(dados => {
+        this.cursos = dados; // dados devem ser [{id, nome}, ...]
+      })
+      .catch(err => console.error("Erro ao buscar cursos:", err));
+  },
+  computed: {
+    erroNome() {
+      return this.nome ? '' : 'Nome é obrigatório!';
+    },
+    erroEmail() {
+      if (!this.email) return 'E-mail é obrigatório!';
+      return /\S+@\S+\.\S+/.test(this.email) ? '' : 'Formato de e-mail inválido.';
+    },
+    erroCurso() {
+      return this.curso ? '' : 'Selecione um curso.';
+    },
+    formValido() {
+      return !this.erroNome && !this.erroEmail && !this.erroCurso;
+    }
+  },
+  methods: {
+    async enviarFormulario() {
+      if (!this.formValido) return;
+
+      try {
+        const resposta = await fetch("https://g7tvyp-3000.csb.app/matricula", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nome: this.nome,
+            email: this.email,
+            curso: this.curso
+          })
+        });
+
+        const dados = await resposta.json();
+        this.mensagemSucesso = dados.mensagem;
+
+        // Limpa campos
+        this.nome = '';
+        this.email = '';
+        this.curso = '';
+      } catch (erro) {
+        console.error("Erro ao enviar:", erro);
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+input, select, button {
+  display: block;
+  margin-bottom: 10px;
+}
+
+span {
+  color: red;
+  font-size: 12px;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+</style>
