@@ -1,18 +1,60 @@
-# Vue 3 + TypeScript + Vite
+# Formulário de Matrícula em Vue.js
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Projeto desenvolvido para a disciplina de Backend I para estudo de matéria da Universidade Veiga de Almeida
 
-## Recommended IDE Setup
+## **Funcionalidades**
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Campo **Nome Completo** (obrigatório)  
+- Campo **E-mail** (obrigatório e com validação de formato)  
+- Select de **Cursos** (simulado back no front)  
+- **Botão de envio** que só habilita quando o formulário está válido  
+- Mensagem de sucesso após envio  
+- Limpeza dos campos após o envio  
 
-## Type Support For `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## **Tecnologias**
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Vue.js 3
+- HTML5 / CSS3  
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+---
+
+## **Como rodar o projeto**
+
+1. Clone ou abra este projeto no CodeSandbox.  
+2. O projeto já está pronto para rodar.  
+3. O select de cursos é preenchido diretamente no front, sem necessidade de back-end.  
+
+> **Nota:** Para usar um back-end real, é necessário alterar o `mounted()` para buscar os cursos via `fetch` ou `axios`. Existe o código do backend criado e está nas notas.
+
+---
+
+## **Estrutura do projeto**
+
+- `App.vue` — componente principal com formulário e lógica de validação.  
+- `data()` — guarda os dados do formulário e cursos.  
+- `mounted()` — simula os cursos que seriam buscados do back.  
+- `computed` — contém validações de campos e verificação de formulário válido.  
+- `methods` — função `enviarFormulario()` que exibe mensagem de sucesso e limpa os campos.  
+
+---
+
+## **Exemplo de uso**
+
+1. Digite seu nome e e-mail.  
+2. Selecione um curso.  
+3. Clique em **Matricular**.  
+4. A mensagem de sucesso aparecerá abaixo do formulário.  
+
+---
+
+## **Screenshots**
+
+---
+
+## **Observações**
+
+- Este projeto é voltado para estudo e aprendizado de Vue.js.  
+- O fetch para back-end foi removido para funcionar no CodeSandbox sem problemas de CORS ou containers separados.  
+- Para produção, você pode integrar com um servidor Node.js ou qualquer back-end que forneça os cursos via API.
